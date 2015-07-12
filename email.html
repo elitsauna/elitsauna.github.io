@@ -1,4 +1,4 @@
-<form action="//formspree.io/ilyas.basharov@gmail.com" method="POST">
+<form action="//formspree.io/ilyas.basharov@gmail.com" method="POST" name="example_form">
     Name:
     <input type="text" name="name"></br>
     Email:
@@ -7,3 +7,65 @@
     <input type="submit" value="Send"></br>
     <input type="hidden" name="_next" value="//ilyasbasharov.github.io/thanks.html" />
 </form>
+
+ <script src="js/validate.min.js"></script>
+
+<script type="text/javascript">
+
+new FormValidator('example_form', [{
+    name: 'name',
+    display: 'required',
+    rules: 'required'
+}, {
+    name: 'alphanumeric',
+    rules: 'alpha_numeric'
+}, {
+    name: 'password',
+    rules: 'required'
+}, {
+    name: 'password_confirm',
+    display: 'password confirmation',
+    rules: 'required|matches[password]'
+}, {
+    name: '_replyto',
+    rules: 'valid_email'
+}, {
+    name: 'minlength',
+    display: 'min length',
+    rules: 'min_length[8]'
+}, {
+    name: 'tos_checkbox',
+    display: 'terms of service',
+    rules: 'required'
+}], function(errors, evt) {
+
+    /*
+     * DO NOT COPY AND PASTE THIS CALLBACK. THIS IS CONFIGURED TO WORK ON THE DOCUMENTATION PAGE ONLY.
+     * YOU MUST CUSTOMIZE YOUR CALLBACK TO WORK UNDER YOUR ENVIRONMENT.
+     */
+
+    var SELECTOR_ERRORS = $('.error_box'),
+        SELECTOR_SUCCESS = $('.success_box');
+
+    if (errors.length &gt; 0) {
+        SELECTOR_ERRORS.empty();
+
+        for (var i = 0, errorLength = errors.length; i &lt; errorLength; i++) {
+            SELECTOR_ERRORS.append(errors[i].message + '&lt;br /&gt;');
+        }
+
+        SELECTOR_SUCCESS.css({ display: 'none' });
+        SELECTOR_ERRORS.fadeIn(200);
+    } else {
+        SELECTOR_ERRORS.css({ display: 'none' });
+        SELECTOR_SUCCESS.fadeIn(200);
+    }
+
+    if (evt &amp;&amp; evt.preventDefault) {
+        evt.preventDefault();
+    } else if (event) {
+        event.returnValue = false;
+    }
+});
+
+</script>
