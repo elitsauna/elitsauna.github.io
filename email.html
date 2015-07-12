@@ -2,69 +2,41 @@
     Name:
     <input type="text" name="name"></br>
     Email:
-    <input type="email" name="_replyto"></br>
+    <input type="email2" name="_replyto"></br>
+    Phone:
+    <input type="phone" name="phone"></br>
     Send:
     <input type="submit" value="Send"></br>
     <input type="hidden" name="_next" value="//ilyasbasharov.github.io/thanks.html" />
 </form>
 
- <script src="js/validate.min.js"></script>
+<div class="error_box"></div>
+
+<script src="js/validate.min.js"></script>
+<script src="js/jquery.js"></script>
 
 <script type="text/javascript">
-
-new FormValidator('example_form', [{
+var validator = new FormValidator('example_form', [{
     name: 'name',
     display: 'required',
     rules: 'required'
-}, {
-    name: 'alphanumeric',
-    rules: 'alpha_numeric'
-}, {
-    name: 'password',
-    rules: 'required'
-}, {
-    name: 'password_confirm',
-    display: 'password confirmation',
-    rules: 'required|matches[password]'
-}, {
+},  {
     name: '_replyto',
     rules: 'valid_email'
 }, {
-    name: 'minlength',
-    display: 'min length',
-    rules: 'min_length[8]'
-}, {
-    name: 'tos_checkbox',
-    display: 'terms of service',
-    rules: 'required'
-}], function(errors, evt) {
+    name: 'phone',
+    display: 'required',
+    rules: 'required|exact_length[11]'
+}], function(errors, event) {
 
-    /*
-     * DO NOT COPY AND PASTE THIS CALLBACK. THIS IS CONFIGURED TO WORK ON THE DOCUMENTATION PAGE ONLY.
-     * YOU MUST CUSTOMIZE YOUR CALLBACK TO WORK UNDER YOUR ENVIRONMENT.
-     */
-
-    var SELECTOR_ERRORS = $('.error_box'),
-        SELECTOR_SUCCESS = $('.success_box');
-
-    if (errors.length &gt; 0) {
+    var SELECTOR_ERRORS = $('.error_box')
+    if (errors.length > 0) {
+        // Show the errors
         SELECTOR_ERRORS.empty();
-
-        for (var i = 0, errorLength = errors.length; i &lt; errorLength; i++) {
-            SELECTOR_ERRORS.append(errors[i].message + '&lt;br /&gt;');
+        console.log("I'm here");
+        for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+            SELECTOR_ERRORS.append(errors[i].message + '<br />');
         }
-
-        SELECTOR_SUCCESS.css({ display: 'none' });
-        SELECTOR_ERRORS.fadeIn(200);
-    } else {
-        SELECTOR_ERRORS.css({ display: 'none' });
-        SELECTOR_SUCCESS.fadeIn(200);
-    }
-
-    if (evt &amp;&amp; evt.preventDefault) {
-        evt.preventDefault();
-    } else if (event) {
-        event.returnValue = false;
     }
 });
 
