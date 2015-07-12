@@ -1,16 +1,19 @@
+<meta charset="UTF-8">
+
+<div class="error_box"></div>
+
 <form action="//formspree.io/ilyas.basharov@gmail.com" method="POST" name="example_form">
-    Name:
+    Name*:</br>
     <input type="text" name="name"></br>
-    Email:
+    Email*:</br>
     <input type="email2" name="_replyto"></br>
-    Phone:
+    Phone*:</br>
     <input type="phone" name="phone"></br>
-    Send:
+    Message*:</br>
+    <textarea type="message" name="message"></textarea></br>
     <input type="submit" value="Send"></br>
     <input type="hidden" name="_next" value="//ilyasbasharov.github.io/thanks.html" />
 </form>
-
-<div class="error_box"></div>
 
 <script src="js/validate.min.js"></script>
 <script src="js/jquery.js"></script>
@@ -22,11 +25,16 @@ var validator = new FormValidator('example_form', [{
     rules: 'required'
 },  {
     name: '_replyto',
-    rules: 'valid_email'
+    display: 'required',
+    rules: 'required|valid_email'
 }, {
     name: 'phone',
     display: 'required',
-    rules: 'required|exact_length[11]'
+    rules: 'required'
+},{
+    name: 'message',
+    display: 'required',
+    rules: 'required'
 }], function(errors, event) {
 
     var SELECTOR_ERRORS = $('.error_box')
@@ -39,5 +47,6 @@ var validator = new FormValidator('example_form', [{
         }
     }
 });
-
+validator.setMessage('required', 'Не заполненно обязательное поле.');
+validator.setMessage('valid_email', 'Введен неправильный почтовый ящик');
 </script>
