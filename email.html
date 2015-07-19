@@ -5,11 +5,11 @@
 <form action="//formspree.io/ilyas.basharov@gmail.com" method="POST" name="example_form">
     Name*:</br>
     <input type="text" name="name"></br>
-    Email*:</br>
-    <input type="email2" name="_replyto"></br>
     Phone*:</br>
     <input type="phone" name="phone"></br>
-    Message*:</br>
+    Email:</br>
+    <input type="email2" name="_replyto"></br>
+    Message:</br>
     <textarea type="message" name="message"></textarea></br>
     <input type="submit" value="Send"></br>
     <input type="hidden" name="_next" value="//ilyasbasharov.github.io/thanks.html" />
@@ -26,7 +26,7 @@ var validator = new FormValidator('example_form', [{
 },  {
     name: '_replyto',
     display: 'required',
-    rules: 'required|valid_email'
+    rules: 'valid_email'
 }, {
     name: 'phone',
     display: 'required',
@@ -34,7 +34,6 @@ var validator = new FormValidator('example_form', [{
 },{
     name: 'message',
     display: 'required',
-    rules: 'required'
 }], function(errors, event) {
 
     var SELECTOR_ERRORS = $('.error_box')
